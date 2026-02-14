@@ -1,1 +1,1 @@
-# CYBSAD
+open https://cybsad.com for information
