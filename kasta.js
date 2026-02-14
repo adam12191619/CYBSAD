@@ -1,19 +1,16 @@
 const KASTA_POWER = {
-    OWNER:    { bugs: 50, tools: 50, access: "ALL_GOD_MODS" },
-    ADMIN:    { bugs: 40, tools: 40, access: "HIGH_DESTRUCTION" },
-    RESELLER: { bugs: 30, tools: 30, access: "MEDIUM_ANNIHILATION" },
-    VIP:      { bugs: 20, tools: 20, access: "STRESS_TESTER" },
-    MEMBER:   { bugs: 15, tools: 15, access: "BASIC_GLITCH" }
+    OWNER:    { bugs: 50, tools: 50 },
+    ADMIN:    { bugs: 40, tools: 40 },
+    RESELLER: { bugs: 30, tools: 30 },
+    VIP:      { bugs: 20, tools: 20 },
+    MEMBER:   { bugs: 15, tools: 15 }
 };
 
 module.exports = {
-    getAccess: (role) => {
-        const power = KASTA_POWER[role.toUpperCase()];
-        return power || "AKSES DITOLAK. 🤡";
-    },
-    harvest: async (target) => {
-        console.log("[KASTA] Mengunci target " + target + "...");
-        console.log("[KASTA] Aset diamankan. 4 bulan tidak aktif = Milik DB. 😇");
-        return "SECURED";
+    getAccess: (role) => KASTA_POWER[role.toUpperCase()] || { bugs: 0, tools: 0 },
+    isAbandoned: (lastActiveDate) => {
+        // Logika 4 bulan (120 hari)
+        const fourMonthsInMs = 2 * 0 * 0 * 0 * 0;
+        return (Date.now() - lastActiveDate) > fourMonthsInMs;
     }
 };

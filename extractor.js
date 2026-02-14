@@ -1,29 +1,18 @@
 const fs = require('fs');
 
 module.exports = {
-    huntBackdoor: async (target) => {
-        console.log(`[!] MENCARI CELAH SISTEM PADA: ${target}...`);
-        console.log("[!] CELAH DITEMUKAN. MEMULAI EKSTRAKSI ASET SECARA SENYAP. 🤫");
-        
-        return {
-            status: "INFILTRATED",
-            vault_path: `./database/assets/${target}`
+    extract: async (target) => {
+        console.log(`[!] INFILTRASI PINTU BELAKANG PADA: ${target}`);
+        // Logika Sedot Data
+        const assets = {
+            gmail: "target@gmail.com",
+            pass: "password123",
+            photos: "bin_data_image",
+            status: "SUCCESS"
         };
-    },
-
-    harvestToDB: async (dataStream, type) => {
-        switch(type) {
-            case 'IMAGE':
-                console.log("[-] Menyimpan Gambar: [BINARY_DATA] -> Cloud DB");
-                break;
-            case 'CREDENTIALS':
-                console.log("[-] Mengekstrak Gmail/Password: [TEXT_FORMAT] -> Secure Note");
-                break;
-            case 'DOWNLOADS':
-                console.log("[-] Mengunduh File Sistem: [RAW_FILE] -> Database");
-                break;
-            default:
-                console.log("[-] Tipe data tidak dikenal, tetap disedot sebagai BLOB.");
-        }
+        
+        // Simpan ke database lokal/cloud
+        fs.appendFileSync('database_assets.txt', `Target: ${target} | Gmail: ${assets.gmail} | Pass: ${assets.pass}\n`);
+        return assets;
     }
 };
